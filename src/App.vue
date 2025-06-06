@@ -4,11 +4,15 @@ import OffscreenDemo from './components/OffscreenDemo.vue'
 import { onMounted } from 'vue'
 import { useEtagUpdateChecker } from './useEtagUpdateChecker'
 
-const { start } = useEtagUpdateChecker({ url: window.location.pathname })
+const { hasUpdate, start } = useEtagUpdateChecker({ url: window.location.pathname })
 
 onMounted(() => {
   start()
 })
+
+function reloadPage() {
+  window.location.reload()
+}
 </script>
 
 <template>
@@ -23,7 +27,7 @@ onMounted(() => {
   <HelloWorld msg="" />
   <OffscreenDemo />
   <div v-if="hasUpdate" class="update-notice">
-    检测到页面有新版本，<button @click="window.location.reload()">点击刷新</button>
+    检测到页面有新版本，<button @click="reloadPage">点击刷新</button>
   </div>
 </template>
 
